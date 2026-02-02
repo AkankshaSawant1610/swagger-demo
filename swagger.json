@@ -1,17 +1,28 @@
 {
   "openapi": "3.0.0",
   "paths": {
-    "/v1": {
-      "get": {
-        "operationId": "AppController_getHello_v1",
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "AuthController_login_v1",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
+          "201": {
             "description": ""
           }
         },
+        "summary": "Login and get JWT token",
         "tags": [
-          "App"
+          "Auth"
         ]
       }
     },
@@ -57,31 +68,6 @@
           "Users"
         ]
       }
-    },
-    "/v1/auth/login": {
-      "post": {
-        "operationId": "AuthController_login_v1",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
-        "summary": "Login and get JWT token",
-        "tags": [
-          "Auth"
-        ]
-      }
     }
   },
   "info": {
@@ -101,6 +87,25 @@
       }
     },
     "schemas": {
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "akanksha",
+            "description": "Username"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456",
+            "description": "Password"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
       "CreateUserDto": {
         "type": "object",
         "properties": {
@@ -127,25 +132,6 @@
         "required": [
           "name",
           "email",
-          "password"
-        ]
-      },
-      "LoginDto": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "example": "akanksha",
-            "description": "Username"
-          },
-          "password": {
-            "type": "string",
-            "example": "123456",
-            "description": "Password"
-          }
-        },
-        "required": [
-          "username",
           "password"
         ]
       }
